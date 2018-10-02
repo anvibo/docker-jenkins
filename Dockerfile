@@ -16,7 +16,7 @@ RUN apt-get update && \
         apt-transport-https \
         software-properties-common \
         gnupg2 && \
-    apt-get autoremove --purge && \
+    apt-get autoremove --purge -y && \
     rm -rf /var/lib/apt/lists/*
 
 RUN usermod -a -G docker jenkins
