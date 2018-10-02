@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:lts-slim
 
 USER root
 
@@ -12,6 +12,11 @@ RUN apt-get update && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable" && \
     apt-get update && \
     apt-get -y install --no-install-recommends docker-ce && \
+    apt-get remove --purge -y \
+        apt-transport-https \
+        software-properties-common \
+        gnupg2 && \
+    apt-get autoremove --purge && \
     rm -rf /var/lib/apt/lists/*
 
 RUN usermod -a -G docker jenkins
